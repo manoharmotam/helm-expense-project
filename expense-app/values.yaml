@@ -16,6 +16,7 @@ db:
   port: 3306
 svc-db:
   serviceName: mysql
+  type: None
 storage-config:
   storage: 2Gi
   className: expense-storage

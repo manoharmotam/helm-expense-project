@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mysql
+  name: {{ .Values.svc-db.serviceName }}
 spec:
-  clusterIP: None
+  clusterIP: {{ .Values.svc-db.type }}
   selector:
-    project: expense-app
-    tier: db
-    component: mysql
+    project: {{ .Values.labels.project }}
+    tier: {{ index .Values.labels.tier 0 }}
+    component: {{ index .Values.labels.component 0 }}
   ports:
     - name: mysql-port
-      port: 3306
-      targetPort: 3306
+      port: {{ .Values.db.port }}
+      targetPort: {{ .Values.db.port }}
       protocol: TCP
