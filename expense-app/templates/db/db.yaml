@@ -43,7 +43,7 @@ spec:
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: {{ .Values.storage-config.className }}
+        storageClassName: {{ .Values.storageConfig.className }}
         resources:
           requests:
-            storage: {{ .Values.storage-config.storage }}
+            storage: {{ .Values.storageConfig.storage }}

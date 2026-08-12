@@ -20,9 +20,9 @@ svc-db:
   serviceName: mysql
   type: None
 
-storage-config:
+storageConfig:
   storage: 2Gi
-  className: expense-storage
+  className: "expense-storage"
 
 backend:
   replicas: 2
