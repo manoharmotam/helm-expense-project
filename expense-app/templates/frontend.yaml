@@ -3,36 +3,38 @@ kind: Deployment
 metadata:
     name: frontend
     labels:
-        project: expense-app
-        tier: frontend
-        component: frontend
+        project: {{ .Values.labels.project }}
+        tier: {{ index .Values.labels.tier 2 }}
+        component: {{ index .Values.labels.component 2 }}
 spec:
     replicas: 2
     selector:
         matchLabels:
-            project: expense-app
-            tier: frontend
-            component: frontend
+          project: {{ .Values.labels.project }}
+          tier: {{ index .Values.labels.tier 2 }}
+          component: {{ index .Values.labels.component 2 }}
     template:
         metadata:
             labels:
-                project: expense-app
-                tier: frontend
-                component: frontend
+              project: {{ .Values.labels.project }}
+              tier: {{ index .Values.labels.tier 2 }}
+              component: {{ index .Values.labels.component 2 }}
         spec:
             containers:
             - name: frontend
-              image: mrmotam/expense-frontend:0.1.1
+              image:  "{{ .Values.frontend.image }}:{{ .Values.frontend.version}}"
               volumeMounts:
-                - name: nginx-config
-                  mountPath: /etc/nginx/nginx.conf
-                  subPath: nginx.conf
+                - name: {{ .Values.frontend.volumeName }}
+                  mountPath: "/etc/nginx/{{ .Values.frontend.confFile }}"
+                  subPath: {{ .Values.frontend.confFile }}
                   readOnly: true
               imagePullPolicy: Always
+              ports:
+              - containerPort: {{ .Values.svc-frontend.port }}
             volumes:
-            - name: nginx-config
+            - name: {{ .Values.frontend.volumeName }}
               configMap:
                 name: expense-config
                 items:
-                - key: nginx.conf
-                  path: nginx.conf
+                - key: {{ .Values.frontend.confFile }}
+                  path: {{ .Values.frontend.confFile }}

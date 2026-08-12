@@ -37,7 +37,16 @@ svc-backend:
 
 frontend:
   replicas: 2
+  image: mrmotam/expense-backend
+  version: 0.1.1
+  volumeName: nginx-config
+  confFile: nginx.conf
+
 svc-frontend:
+  port: 80
+  type: NodePort
+  nodePort: 31000
+
 config: |
   user nginx;
     worker_processes auto;

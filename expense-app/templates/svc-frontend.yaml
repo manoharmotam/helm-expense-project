@@ -3,14 +3,14 @@ kind: Service
 metadata:
   name: frontend
 spec:
-  type: NodePort
+  type: {{ .Values.svc-frontend.type }}
   selector:
-    project: expense-app
-    tier: frontend
-    component: frontend
+    project: {{ .Values.labels.project }}
+    tier: {{ index .Values.labels.tier 2 }}
+    component: {{ index .Values.labels.component 2 }}
   ports:
   - name: frontend-port
     protocol: "TCP"
-    targetPort: 80
-    port: 80
-    nodePort: 31000
+    targetPort: {{ .Values.svc-frontend.port }}
+    port: {{ .Values.svc-frontend.port }}
+    nodePort: {{ .Values.svc-frontend.nodePort }}
