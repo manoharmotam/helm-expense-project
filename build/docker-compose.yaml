@@ -14,12 +14,16 @@ services:
       timeout: 5s
       retries: 30
       start_period: 30s
+    volumes:
+      - mysql-data:/var/lib/mysql
   backend:
     build: ./backend
     container_name: backend
     image: mrmotam/expense-backend:0.1.0
     environment:
       DB_HOST: mysql-db
+    volumes:
+      - backend:/app
     depends_on:
      - db
   frontend:
@@ -28,5 +32,16 @@ services:
     image: mrmotam/expense-frontend:0.1.0
     ports:
     - "80:80"
+    volumes:
+      - frontend:/usr/share/nginx/html
     depends_on:
       - backend
+networks:
+  default:
+    name: expense
+    driver: bridge
+    external: false
+volumes:
+  backend:
+  mysql-data:
+  frontend:
