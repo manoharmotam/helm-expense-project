@@ -4,11 +4,11 @@ metadata:
   name: backend
 spec:
   selector:
-    project: expense-app
-    tier: backend
-    component: backend
+    project: {{ .Values.labels.project }}
+    tier: {{ index .Values.labels.tier 1 }}
+    component: {{ index .Values.labels.component 1 }}
   ports:
   - name: backend-port
     protocol: "TCP"
-    port: 8080
-    targetPort: 8080
+    port: {{ .Values.svc-backend.port }}
+    targetPort: {{ .Values.svc-backend.port }}

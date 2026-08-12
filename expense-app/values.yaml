@@ -8,21 +8,33 @@ labels:
   - mysql
   - backend
   - frontend
+
 db:
   replicas: 2
   image: mrmotam/expense-db
   version: 0.1.0
   MYSQL_ROOT_PASSWORD: 'ExpenseApp@1'
   port: 3306
+
 svc-db:
   serviceName: mysql
   type: None
+
 storage-config:
   storage: 2Gi
   className: expense-storage
+
 backend:
   replicas: 2
+  image: mrmotam/expense-backend
+  version: 0.1.0
+  env:
+  - DB_HOST: mysql
+  - DB_USER: expense
+
 svc-backend:
+  port: 8080
+
 frontend:
   replicas: 2
 svc-frontend:

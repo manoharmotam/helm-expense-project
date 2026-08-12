@@ -3,30 +3,30 @@ kind: Deployment
 metadata:
     name: backend
     labels:
-        project: expense-app
-        tier: backend
-        component: backend
+        project: {{ .Values.labels.project }}
+        tier: {{ index .Values.labels.tier 1 }}
+        component: {{ index .Values.labels.component 1 }}
 spec:
-    replicas: 2
+    replicas: {{ .Values.backend.replicas }}
     selector:
         matchLabels:
-            project: expense-app
-            tier: backend
-            component: backend
+            project: {{ .Values.labels.project }}
+            tier: {{ index .Values.labels.tier 1 }}
+            component: {{ index .Values.labels.component 1 }}
     template:
         metadata:
             labels:
-                project: expense-app
-                tier: backend
-                component: backend
+                project: {{ .Values.labels.project }}
+                tier: {{ index .Values.labels.tier 1 }}
+                component: {{ index .Values.labels.component 1 }}
         spec:
             containers:
             - name: backend
-              image: mrmotam/expense-backend:0.1.0
+              image: "{{ .Values.backend.image }}:{{ .Values.backend.version}}"
               env:
               - name: DB_HOST
-                value: mysql
+                value: {{ index.Values.backend.env 0 }}
               - name: DB_USER
-                value: expense
+                value: {{ index.Values.backend.env 1 }}
                   
     
