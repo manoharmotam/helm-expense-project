@@ -37,7 +37,7 @@ backendService:
 
 frontend:
   replicas: 2
-  image: mrmotam/expense-backend
+  image: mrmotam/expense-frontend
   version: 0.1.1
   volumeName: nginx-config
   confFile: nginx.conf
