@@ -3,56 +3,47 @@ kind: StatefulSet
 metadata:
   name: mysql
   labels:
-    project: expense-app
-    tier: db
-    component: mysql
+    project: {{ .Values.labels.project }}
+    tier: {{ index .Values.labels.tier 0 }}
+    component: {{ index .Values.labels.component 0 }}
 
 spec:
-  replicas: 2
-
+  replicas: {{ .Values.db.replicas }}
   selector:
     matchLabels:
-      project: expense-app
-      tier: db
-      component: mysql
-
-  serviceName: mysql
+      project: {{ .Values.labels.project }}
+      tier: {{ index .Values.labels.tier 0 }}
+      component: {{ index .Values.labels.component 0 }}
+  serviceName: {{ .Values.svc-db.serviceName }}
   minReadySeconds: 10
-
   template:
     metadata:
       labels:
-        project: expense-app
-        tier: db
-        component: mysql
-
+        project: {{ .Values.labels.project }}
+        tier: {{ index .Values.labels.tier 0 }}
+        component: {{ index .Values.labels.component 0 }}
     spec:
       containers:
         - name: mysql
-          image: mrmotam/expense-db:0.1.0
-
+          image: "{{ .Values.db.image }}:{{ .Values.db.version}}"
           args:
             - --mysql-native-password=ON
-
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: 'ExpenseApp@1'
-
+              value: {{ .Values.db.MYSQL_ROOT_PASSWORD }}
           ports:
             - name: mysql-port
-              containerPort: 3306
-
+              containerPort: {{ .Values.db.port }}
           volumeMounts:
             - name: mysql-db
               mountPath: /var/lib/mysql
-
   volumeClaimTemplates:
     - metadata:
         name: mysql-db
       spec:
         accessModes:
           - ReadWriteOnce
-        storageClassName: expense-storage
+        storageClassName: {{ .Values.storage-config.className }}
         resources:
           requests:
-            storage: 2Gi
+            storage: {{ .Values.storage-config.storage }}
