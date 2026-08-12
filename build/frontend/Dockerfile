@@ -22,8 +22,8 @@ RUN mkdir -p /etc/nginx/ssl/ && \
 RUN touch /var/run/nginx.pid && \
         chown -R nginx:nginx /var/run/nginx.pid /run/nginx.pid
         
-COPY config/static /usr/share/nginx/html/
-COPY *.html /usr/share/nginx/html/
+COPY config/static/ /usr/share/nginx/html/static/
+COPY config/*.html /usr/share/nginx/html/
 COPY config/nginx.conf /etc/nginx/nginx.conf
 USER nginx
 CMD [ "nginx", "-g", "daemon off;" ]

@@ -22,12 +22,13 @@ spec:
         spec:
             containers:
             - name: frontend
-              image: mrmotam/expense-frontend:0.1.0
+              image: mrmotam/expense-frontend:0.1.1
               volumeMounts:
                 - name: nginx-config
                   mountPath: /etc/nginx/nginx.conf
                   subPath: nginx.conf
                   readOnly: true
+              imagePullPolicy: Always
             volumes:
             - name: nginx-config
               configMap:
