@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  labels:
+    project: expense-app
+    tier: db
+    component: mysql
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      project: expense-app
+      tier: db
+      component: mysql
+
+  serviceName: mysql
+  minReadySeconds: 10
+
+  template:
+    metadata:
+      labels:
+        project: expense-app
+        tier: db
+        component: mysql
+
+    spec:
+      containers:
+        - name: mysql
+          image: mrmotam/expense-db:0.1.0
+
+          args:
+            - --mysql-native-password=ON
+
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: 'ExpenseApp@1'
+
+          ports:
+            - name: mysql-port
+              containerPort: 3306
+
+          volumeMounts:
+            - name: mysql-db
+              mountPath: /var/lib/mysql
+
+  volumeClaimTemplates:
+    - metadata:
+        name: mysql-db
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        storageClassName: expense-storage
+        resources:
+          requests:
+            storage: 2Gi

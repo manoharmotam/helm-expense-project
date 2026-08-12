@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  clusterIP: None
+  selector:
+    project: expense-app
+    tier: db
+    component: mysql
+  ports:
+    - name: mysql-port
+      port: 3306
+      targetPort: 3306
+      protocol: TCP
