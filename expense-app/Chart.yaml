@@ -1,0 +1,6 @@
+appVersion: "0.1.0"
+name: expense-app
+apiVersion: v2
+description: A simple expense app that tracks your daily expenses.
+type: application
+version: 0.1.0
