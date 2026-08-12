@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: frontend
+    labels:
+        project: expense-app
+        tier: frontend
+        component: frontend
+spec:
+    replicas: 2
+    selector:
+        matchLabels:
+            project: expense-app
+            tier: frontend
+            component: frontend
+    template:
+        metadata:
+            labels:
+                project: expense-app
+                tier: frontend
+                component: frontend
+        spec:
+            containers:
+            - name: frontend
+              image: mrmotam/expense-frontend:0.1.0
+              volumeMounts:
+                - name: nginx-config
+                  mountPath: /etc/nginx/nginx.conf
+                  subPath: nginx.conf
+                  readOnly: true
+            volumes:
+            - name: nginx-config
+              configMap:
+                name: expense-config
+                items:
+                - key: nginx.conf
+                  path: nginx.conf
