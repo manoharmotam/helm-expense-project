@@ -3,4 +3,5 @@ kind: ConfigMap
 metadata:
   name: expense-config
 data:
-  nginx.conf: {{ .Values.config }}
+  nginx.conf: |
+    {{ .Values.config | nindent 4 }}

@@ -25,8 +25,8 @@ spec:
               image: "{{ .Values.backend.image }}:{{ .Values.backend.version}}"
               env:
               - name: DB_HOST
-                value: {{ index.Values.backend.env 0 }}
+                value: {{ index .Values.backend.env 0 }}
               - name: DB_USER
-                value: {{ index.Values.backend.env 1 }}
+                value: {{ index .Values.backend.env 1 }}
                   
     

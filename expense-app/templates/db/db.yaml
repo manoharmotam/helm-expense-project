@@ -14,7 +14,7 @@ spec:
       project: {{ .Values.labels.project }}
       tier: {{ index .Values.labels.tier 0 }}
       component: {{ index .Values.labels.component 0 }}
-  serviceName: {{ .Values.svc-db.serviceName }}
+  serviceName: {{ .Values.dbService.serviceName }}
   minReadySeconds: 10
   template:
     metadata:

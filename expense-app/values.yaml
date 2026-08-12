@@ -16,7 +16,7 @@ db:
   MYSQL_ROOT_PASSWORD: 'ExpenseApp@1'
   port: 3306
 
-svc-db:
+dbService:
   serviceName: mysql
   type: None
 
@@ -32,7 +32,7 @@ backend:
   - DB_HOST: mysql
   - DB_USER: expense
 
-svc-backend:
+backendService:
   port: 8080
 
 frontend:
@@ -42,7 +42,7 @@ frontend:
   volumeName: nginx-config
   confFile: nginx.conf
 
-svc-frontend:
+frontendService:
   port: 80
   type: NodePort
   nodePort: 31000

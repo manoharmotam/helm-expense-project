@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: frontend
 spec:
-  type: {{ .Values.svc-frontend.type }}
+  type: {{ .Values.frontendService.type }}
   selector:
     project: {{ .Values.labels.project }}
     tier: {{ index .Values.labels.tier 2 }}
@@ -11,6 +11,6 @@ spec:
   ports:
   - name: frontend-port
     protocol: "TCP"
-    targetPort: {{ .Values.svc-frontend.port }}
-    port: {{ .Values.svc-frontend.port }}
-    nodePort: {{ .Values.svc-frontend.nodePort }}
+    targetPort: {{ .Values.frontendService.port }}
+    port: {{ .Values.frontendService.port }}
+    nodePort: {{ .Values.frontendService.nodePort }}

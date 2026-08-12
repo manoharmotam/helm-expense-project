@@ -10,5 +10,5 @@ spec:
   ports:
   - name: backend-port
     protocol: "TCP"
-    port: {{ .Values.svc-backend.port }}
-    targetPort: {{ .Values.svc-backend.port }}
+    port: {{ .Values.backendService.port }}
+    targetPort: {{ .Values.backendService.port }}

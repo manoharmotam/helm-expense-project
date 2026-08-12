@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.svc-db.serviceName }}
+  name: {{ .Values.dbService.serviceName }}
 spec:
-  clusterIP: {{ .Values.svc-db.type }}
+  clusterIP: {{ .Values.dbService.type }}
   selector:
     project: {{ .Values.labels.project }}
     tier: {{ index .Values.labels.tier 0 }}

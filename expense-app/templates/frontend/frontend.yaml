@@ -30,7 +30,7 @@ spec:
                   readOnly: true
               imagePullPolicy: Always
               ports:
-              - containerPort: {{ .Values.svc-frontend.port }}
+              - containerPort: {{ .Values.frontendService.port }}
             volumes:
             - name: {{ .Values.frontend.volumeName }}
               configMap:
